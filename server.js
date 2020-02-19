@@ -4,7 +4,7 @@ const articleQueries = require('./db/articleQueries');
 
 db.sync().then(async () => {
   console.log('synced');
-  const data = await articleQueries.readArticles();
-  const id = data[0].id;
-  console.log(await articleQueries.readArticleByTitle('Harry'));
+  /*
+  Invoke queries here and console.log results
+  */
 });

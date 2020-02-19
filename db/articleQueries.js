@@ -23,15 +23,21 @@ const readArticleByTitle = async title => {
   return result.rows;
 };
 
+const readArticleByAuthorId = async authorId => {
+  const SQL = 'SELECT * FROM article WHERE author_id = $1';
+  const result = await client.query(SQL, [authorId]);
+  return result.rows;
+};
+
 const deleteArticle = async articleId => {
   const SQL = 'DELETE FROM article WHERE id = $1';
   await client.query(SQL, [articleId]);
 };
 
-const createArticle = async (title, body) => {
+const createArticle = async (authorId, title, body) => {
   const SQL =
-    'INSERT INTO article (id, first_name, last_name) VALUES (uuid_generate_v4(), $1, $2) RETURNING  *';
-  const result = client.query(SQL, [title, body]);
+    'INSERT INTO article (id, author_id, title, body) VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING  *';
+  const result = client.query(SQL, [authorId, title, body]);
   return result.rows;
 };
 
@@ -46,6 +52,7 @@ module.exports = {
   readArticles,
   readArticleById,
   readArticleByTitle,
+  readArticleByAuthorId,
   deleteArticle,
   createArticle,
   updateArticle
