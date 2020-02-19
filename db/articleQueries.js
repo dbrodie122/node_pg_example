@@ -1,9 +1,4 @@
 const client = require('./db').client;
-/*
-deleteArticle (deletes an article)
-createArticle (creates an article)
-updateArticle (updates an article)
-*/
 
 const readArticles = async () => {
   const SQL = 'SELECT * FROM article';
