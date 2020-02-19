@@ -18,6 +18,12 @@ const readAuthorByFullName = async (firstName, lastName) => {
   return result.rows;
 };
 const deleteAuthor = async authorId => {
+  const getArticlesSql = 'SELECT  * FROM article where author_id = $1';
+  const result = await client.query(getArticlesSql, [authorId]);
+  const articles = result.rows;
+  if (articles.length > 0) {
+    return;
+  }
   const SQL = 'DELETE FROM author WHERE id = $1';
   await client.query(SQL, [authorId]);
 };
